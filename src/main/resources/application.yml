@@ -1,0 +1,29 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: Product
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+hnb:
+  url: https://api.hnb.hr
+  path: /tecajn-eur/v3
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+springdoc:
+  show-actuator: true
