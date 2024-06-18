@@ -1,5 +1,6 @@
 package hr.xmjosic.product.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hr.xmjosic.product.constant.ConstraintName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -32,16 +33,19 @@ public class Product {
 
   @Min(value = 0)
   @Column(name = "price_eur")
+  @JsonProperty("price_eur")
   private BigDecimal priceEur;
 
   @Min(value = 0)
   @Column(name = "price_usd")
+  @JsonProperty("price_usd")
   private BigDecimal priceUsd;
 
   @Column(name = "description")
   private String description;
 
   @Column(name = "is_available")
+  @JsonProperty("is_available")
   private boolean isAvailable;
 
   @Override
