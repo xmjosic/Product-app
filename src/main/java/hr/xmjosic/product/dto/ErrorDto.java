@@ -1,6 +1,8 @@
 package hr.xmjosic.product.dto;
 
 import java.time.Instant;
+import java.util.List;
+
 import lombok.Builder;
 
 /**
@@ -13,4 +15,4 @@ import lombok.Builder;
  * @param path the path
  */
 @Builder
-public record ErrorDto(Instant timestamp, int status, String error, String message, String path) {}
+public record ErrorDto(Instant timestamp, int status, String error, List<String> message, String path) {}

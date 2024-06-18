@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 /** Controller for product-related operations. */
 @CrossOrigin
 @RestController
-@RequestMapping("/v1/product")
+@RequestMapping("/api/v1/product")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductController {

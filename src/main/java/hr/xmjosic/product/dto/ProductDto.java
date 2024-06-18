@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
 /**
@@ -17,6 +19,7 @@ import java.math.BigDecimal;
  * @param description the description of the product
  * @param isAvailable true if the product is available
  */
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ProductDto(
     @NotBlank(message = "Code is mandatory.")

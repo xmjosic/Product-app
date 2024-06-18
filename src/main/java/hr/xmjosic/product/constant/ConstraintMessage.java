@@ -11,10 +11,10 @@ public enum ConstraintMessage {
   UNIQUE_CODE_CONSTRAINT(ConstraintName.UNIQUE_CODE_CONSTRAINT, "Product code must be unique");
 
   /** The name of the constraint. */
-  private final String message;
+  private final String name;
 
   /** The message associated with the constraint. */
-  private final String name;
+  private final String message;
 
   /** The values of the enum. */
   private static final ConstraintMessage[] VALUES = values();

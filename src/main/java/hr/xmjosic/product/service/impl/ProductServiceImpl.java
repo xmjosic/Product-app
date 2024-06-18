@@ -6,6 +6,8 @@ import hr.xmjosic.product.dto.ProductDto;
 import hr.xmjosic.product.model.Product;
 import hr.xmjosic.product.service.HnbApiService;
 import hr.xmjosic.product.service.ProductService;
+
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     Optional<Product> byId = repository.findById(id);
     log.debug("Retrieved product: {}", byId.isPresent());
     return byId.orElseThrow(
-        () -> new IllegalArgumentException("Product with id " + id + " not found."));
+        () -> new NoSuchElementException("Product with id " + id + " not found."));
   }
 
   @Override

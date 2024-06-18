@@ -5,6 +5,7 @@ import hr.xmjosic.product.dto.ErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
@@ -30,15 +31,15 @@ public class GlobalControllerAdvice {
    * @return an ErrorDto object containing the timestamp, status code, error class name, error
    *     message, and request path
    */
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(IllegalArgumentException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(NoSuchElementException.class)
   public ErrorDto handleIllegalArgumentException(
-      IllegalArgumentException ex, HttpServletRequest request) {
+      NoSuchElementException ex, HttpServletRequest request) {
     return ErrorDto.builder()
         .timestamp(Instant.now())
-        .status(HttpStatus.BAD_REQUEST.value())
+        .status(HttpStatus.NOT_FOUND.value())
         .error(ex.getClass().getName())
-        .message(ex.getMessage())
+        .message(List.of(ex.getMessage()))
         .path(request.getRequestURI())
         .build();
   }
@@ -66,9 +67,10 @@ public class GlobalControllerAdvice {
                 .status(status.value())
                 .error(ex.getClass().getName())
                 .message(
-                    StringUtils.hasText(message)
-                        ? message
-                        : "Constraint violation exception occurred.")
+                    List.of(
+                        StringUtils.hasText(message)
+                            ? message
+                            : "Constraint violation exception occurred."))
                 .path(request.getRequestURI())
                 .build());
   }
@@ -95,7 +97,7 @@ public class GlobalControllerAdvice {
         .timestamp(Instant.now())
         .status(HttpStatus.BAD_REQUEST.value())
         .error(ex.getClass().getName())
-        .message(String.join(";\n", errors))
+        .message(errors)
         .path(request.getRequestURI())
         .build();
   }
@@ -116,7 +118,7 @@ public class GlobalControllerAdvice {
         .timestamp(Instant.now())
         .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
         .error(ex.getClass().getName())
-        .message(ex.getMessage())
+        .message(List.of(ex.getMessage()))
         .path(request.getRequestURI())
         .build();
   }
